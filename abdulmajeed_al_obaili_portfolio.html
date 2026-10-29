@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en" class="dark scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Abdulmajeed Al-Obaili | Full-Stack Product Engineer</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Fonts: Inter & JetBrains Mono -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&family=Noto+Sans+Arabic:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                        arabic: ['Noto Sans Arabic', 'sans-serif'],
+                    },
+                    colors: {
+                        wine: {
+                            50: '#fff1f2',
+                            100: '#ffe4e6',
+                            200: '#fecdd3',
+                            300: '#fda4af',
+                            400: '#fb7185',
+                            500: '#f43f5e',
+                            600: '#e11d48',
+                            700: '#be123c',
+                            800: '#9f1239',
+                            900: '#881337',
+                            950: '#4c0519',
+                        },
+                        darkbg: '#0a0608',
+                        darkcard: '#120b0e',
+                        darkborder: '#2a151d',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0a0608;
+        }
+        .light ::-webkit-scrollbar-track {
+            background: #fcf8f9;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #881337;
+            border-radius: 9999px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #be123c;
+        }
+
+        /* Wine Red Glow Backgrounds */
+        .wine-glow {
+            background: radial-gradient(circle at 50% 20%, rgba(190, 18, 60, 0.15) 0%, rgba(10, 6, 8, 0) 70%);
+        }
+        .light .wine-glow {
+            background: radial-gradient(circle at 50% 20%, rgba(254, 205, 211, 0.4) 0%, rgba(252, 248, 249, 0) 70%);
+        }
+        
+        .card-wine-hover {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .card-wine-hover:hover {
+            border-color: rgba(190, 18, 60, 0.5);
+            transform: translateY(-3px);
+            box-shadow: 0 12px 30px -10px rgba(136, 19, 55, 0.25);
+        }
+
+        /* Glassmorphism utility */
+        .glass-nav {
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+        }
+    </style>
+</head>
+<body class="bg-darkbg text-slate-200 font-sans antialiased selection:bg-wine-700 selection:text-white transition-colors duration-300 light:bg-slate-50 light:text-slate-800 min-h-screen flex flex-col justify-between">
+
+    <!-- BACKGROUND AMBIENT GLOW -->
+    <div class="fixed inset-0 wine-glow pointer-events-none z-0"></div>
+
+    <!-- NAVBAR -->
+    <header class="sticky top-0 z-50 w-full glass-nav bg-darkbg/80 border-b border-darkborder/80 light:bg-white/80 light:border-slate-200 transition-colors duration-300">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <!-- Brand Logo / Name -->
+            <a href="#hero" class="flex items-center space-x-3 group">
+                <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-wine-900 via-wine-800 to-wine-600 flex items-center justify-center text-white font-bold text-sm shadow-md shadow-wine-900/40 group-hover:scale-105 transition-transform">
+                    <span class="font-mono">AA</span>
+                </div>
+                <div class="flex flex-col">
+                    <span class="font-bold text-white text-sm tracking-tight light:text-slate-900 flex items-center gap-1.5">
+                        Abdulmajeed <span class="font-arabic font-semibold text-wine-400 text-xs">عبدالمجيد</span>
+                    </span>
+                    <span class="text-[10px] text-slate-400 font-mono tracking-wider light:text-slate-500">FULL-STACK ENGINEER</span>
+                </div>
+            </a>
+
+            <!-- Navigation Links -->
+            <nav class="hidden md:flex items-center space-x-8 text-xs font-medium text-slate-300 light:text-slate-600">
+                <a href="#about" class="hover:text-wine-400 light:hover:text-wine-700 transition">About</a>
+                <a href="#projects" class="hover:text-wine-400 light:hover:text-wine-700 transition">Projects</a>
+                <a href="#skills" class="hover:text-wine-400 light:hover:text-wine-700 transition">Tech Stack</a>
+                <a href="#contact" class="hover:text-wine-400 light:hover:text-wine-700 transition">Contact</a>
+            </nav>
+
+            <!-- Actions: Theme Switcher & Contact Button -->
+            <div class="flex items-center space-x-3">
+                <!-- Theme Toggle Button -->
+                <button id="theme-toggle" onclick="toggleTheme()" class="p-2 rounded-xl bg-darkcard border border-darkborder text-slate-300 hover:text-white hover:border-wine-800 light:bg-slate-100 light:border-slate-300 light:text-slate-700 transition" aria-label="Toggle Theme">
+                    <i data-lucide="sun" id="theme-icon-sun" class="w-4 h-4 hidden"></i>
+                    <i data-lucide="moon" id="theme-icon-moon" class="w-4 h-4"></i>
+                </button>
+
+                <!-- Action Button -->
+                <a href="#contact" class="px-4 py-2 rounded-xl bg-gradient-to-r from-wine-800 to-wine-600 hover:from-wine-700 hover:to-wine-500 text-white text-xs font-semibold shadow-md shadow-wine-950/50 transition transform active:scale-95 flex items-center space-x-1.5">
+                    <i data-lucide="mail" class="w-3.5 h-3.5"></i>
+                    <span>Get in Touch</span>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- HERO SECTION -->
+    <section id="hero" class="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-20 md:pt-24 md:pb-28">
+        <div class="max-w-3xl space-y-6">
+            
+            <!-- Availability Badge -->
+            <div class="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-wine-950/60 border border-wine-800/60 light:bg-wine-50 light:border-wine-200 text-xs font-mono text-wine-300 light:text-wine-800">
+                <span class="w-2 h-2 rounded-full bg-wine-500 animate-pulse"></span>
+                <span>Available for Remote & Local Roles in Riyadh</span>
+            </div>
+
+            <!-- Main Heading -->
+            <div class="space-y-2">
+                <h1 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold text-white light:text-slate-900 tracking-tight leading-none">
+                    Abdulmajeed Al-Obaili
+                </h1>
+                <p class="text-xl sm:text-2xl font-semibold text-wine-400 light:text-wine-700 tracking-tight">
+                    AI-Driven Product Developer & High-Velocity Full-Stack Engineer
+                </p>
+            </div>
+
+            <!-- Professional Persona Bio -->
+            <p id="about" class="text-sm sm:text-base text-slate-300 light:text-slate-600 leading-relaxed font-normal">
+                I specialize in high-velocity product engineering—bridging modern AI workflows with robust web architectures to transform concepts into production-grade digital solutions in record time. Leveraging <strong class="text-white light:text-slate-900 font-semibold">Next.js 16, React, and Supabase</strong>, I architect end-to-end platforms, automated business tools, and sleek digital experiences engineered for scalability, speed, and real-world business impact.
+            </p>
+
+            <!-- Key Metric Highlights -->
+            <div class="grid grid-cols-2 sm:grid-cols-3 gap-4 pt-2">
+                <div class="p-3.5 rounded-xl bg-darkcard/80 border border-darkborder light:bg-white light:border-slate-200">
+                    <span class="block text-xl font-bold font-mono text-white light:text-slate-900">Next.js + Supabase</span>
+                    <span class="text-[11px] text-slate-400 light:text-slate-500">Core Tech Architecture</span>
+                </div>
+                <div class="p-3.5 rounded-xl bg-darkcard/80 border border-darkborder light:bg-white light:border-slate-200">
+                    <span class="block text-xl font-bold font-mono text-wine-400 light:text-wine-700">Rapid Delivery</span>
+                    <span class="text-[11px] text-slate-400 light:text-slate-500">AI-Augmented Workflows</span>
+                </div>
+                <div class="p-3.5 rounded-xl bg-darkcard/80 border border-darkborder light:bg-white light:border-slate-200 col-span-2 sm:col-span-1">
+                    <span class="block text-xl font-bold font-mono text-white light:text-slate-900">Riyadh / Remote</span>
+                    <span class="text-[11px] text-slate-400 light:text-slate-500">Base & Coverage</span>
+                </div>
+            </div>
+
+            <!-- Action Buttons & Social Links -->
+            <div class="flex flex-wrap items-center gap-4 pt-4">
+                <a href="#projects" class="px-6 py-3 rounded-xl bg-wine-700 hover:bg-wine-600 text-white font-semibold text-xs tracking-wide flex items-center space-x-2 shadow-lg shadow-wine-900/30 transition transform active:scale-95">
+                    <span>Explore Featured Projects</span>
+                    <i data-lucide="arrow-down" class="w-4 h-4"></i>
+                </a>
+
+                <a href="https://github.com/necrotrace" target="_blank" rel="noopener" class="px-4 py-3 rounded-xl bg-darkcard border border-darkborder hover:border-wine-800 text-slate-200 light:bg-white light:border-slate-300 light:text-slate-700 text-xs font-medium flex items-center space-x-2 transition">
+                    <i data-lucide="github" class="w-4 h-4"></i>
+                    <span>GitHub</span>
+                </a>
+
+                <a href="https://x.com/necrotrace" target="_blank" rel="noopener" class="px-4 py-3 rounded-xl bg-darkcard border border-darkborder hover:border-wine-800 text-slate-200 light:bg-white light:border-slate-300 light:text-slate-700 text-xs font-medium flex items-center space-x-2 transition">
+                    <i data-lucide="twitter" class="w-4 h-4"></i>
+                    <span>@necrotrace</span>
+                </a>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- FEATURED PROJECTS SECTION -->
+    <section id="projects" class="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16 border-t border-darkborder/60 light:border-slate-200">
+        <div class="space-y-2 mb-10">
+            <span class="text-xs font-mono font-semibold text-wine-400 uppercase tracking-widest light:text-wine-700">PORTFOLIO WORK</span>
+            <h2 class="text-2xl sm:text-3xl font-extrabold text-white light:text-slate-900">Featured Systems & Products</h2>
+            <p class="text-xs sm:text-sm text-slate-400 light:text-slate-600 max-w-xl">
+                Production-ready digital platforms built with emphasis on user performance, modern authentication, real-time database capabilities, and clean UI.
+            </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            
+            <!-- PROJECT 1: NUSAHIL -->
+            <div class="p-6 rounded-2xl bg-darkcard border border-darkborder card-wine-hover light:bg-white light:border-slate-200 flex flex-col justify-between space-y-6">
+                <div class="space-y-4">
+                    <div class="flex items-start justify-between">
+                        <div class="w-10 h-10 rounded-xl bg-wine-950 border border-wine-800/80 flex items-center justify-center text-wine-400 font-bold text-lg light:bg-wine-100 light:border-wine-200 light:text-wine-800">
+                            <i data-lucide="layers" class="w-5 h-5"></i>
+                        </div>
+                        <span class="px-2.5 py-1 rounded-full bg-slate-900 border border-slate-800 text-[10px] font-mono text-slate-400 light:bg-slate-100 light:border-slate-200 light:text-slate-600">Enterprise Digital Platform</span>
+                    </div>
+
+                    <div>
+                        <h3 class="text-xl font-bold text-white light:text-slate-900 flex items-center space-x-2">
+                            <span>Nusahil</span>
+                            <span class="font-arabic font-normal text-slate-400 text-sm">(نُسهّل)</span>
+                        </h3>
+                        <p class="text-xs text-slate-300 light:text-slate-600 mt-2 leading-relaxed">
+                            An end-to-end digital solutions and technology platform providing modern business infrastructure, digital profile cards, and automated web solutions tailored for enterprise and local client growth.
+                        </p>
+                    </div>
+
+                    <!-- Tech Tags -->
+                    <div class="flex flex-wrap gap-2 pt-2">
+                        <span class="px-2.5 py-1 rounded-md bg-slate-900/90 border border-slate-800 text-[11px] font-mono text-wine-300 light:bg-slate-100 light:border-slate-200 light:text-wine-900">Next.js 16</span>
+                        <span class="px-2.5 py-1 rounded-md bg-slate-900/90 border border-slate-800 text-[11px] font-mono text-wine-300 light:bg-slate-100 light:border-slate-200 light:text-wine-900">React</span>
+                        <span class="px-2.5 py-1 rounded-md bg-slate-900/90 border border-slate-800 text-[11px] font-mono text-wine-300 light:bg-slate-100 light:border-slate-200 light:text-wine-900">Supabase</span>
+                        <span class="px-2.5 py-1 rounded-md bg-slate-900/90 border border-slate-800 text-[11px] font-mono text-slate-300 light:bg-slate-100 light:border-slate-200 light:text-slate-700">Tailwind CSS</span>
+                    </div>
+                </div>
+
+                <!-- Card Footer Link -->
+                <div class="pt-4 border-t border-darkborder/50 light:border-slate-100 flex items-center justify-between">
+                    <span class="text-[11px] text-slate-400 font-mono">nusahil.com</span>
+                    <a href="https://nusahil.com" target="_blank" rel="noopener" class="px-3.5 py-1.5 rounded-lg bg-wine-900/50 hover:bg-wine-800 text-white text-xs font-semibold flex items-center space-x-1.5 transition">
+                        <span>Visit Site</span>
+                        <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- PROJECT 2: NUSAHIL SALON SOLUTIONS -->
+            <div class="p-6 rounded-2xl bg-darkcard border border-darkborder card-wine-hover light:bg-white light:border-slate-200 flex flex-col justify-between space-y-6">
+                <div class="space-y-4">
+                    <div class="flex items-start justify-between">
+                        <div class="w-10 h-10 rounded-xl bg-wine-950 border border-wine-800/80 flex items-center justify-center text-wine-400 font-bold text-lg light:bg-wine-100 light:border-wine-200 light:text-wine-800">
+                            <i data-lucide="calendar-check-2" class="w-5 h-5"></i>
+                        </div>
+                        <span class="px-2.5 py-1 rounded-full bg-slate-900 border border-slate-800 text-[10px] font-mono text-slate-400 light:bg-slate-100 light:border-slate-200 light:text-slate-600">SaaS Booking System</span>
+                    </div>
+
+                    <div>
+                        <h3 class="text-xl font-bold text-white light:text-slate-900 flex items-center space-x-2">
+                            <span>LuxSalon Booking System</span>
+                        </h3>
+                        <p class="text-xs text-slate-300 light:text-slate-600 mt-2 leading-relaxed">
+                            A high-performance appointment and salon management platform developed under Nusahil. Features real-time slot reservation, service categorization, staff scheduling, and automated user confirmation workflows.
+                        </p>
+                    </div>
+
+                    <!-- Tech Tags -->
+                    <div class="flex flex-wrap gap-2 pt-2">
+                        <span class="px-2.5 py-1 rounded-md bg-slate-900/90 border border-slate-800 text-[11px] font-mono text-wine-300 light:bg-slate-100 light:border-slate-200 light:text-wine-900">Next.js 16</span>
+                        <span class="px-2.5 py-1 rounded-md bg-slate-900/90 border border-slate-800 text-[11px] font-mono text-wine-300 light:bg-slate-100 light:border-slate-200 light:text-wine-900">React</span>
+                        <span class="px-2.5 py-1 rounded-md bg-slate-900/90 border border-slate-800 text-[11px] font-mono text-wine-300 light:bg-slate-100 light:border-slate-200 light:text-wine-900">Supabase</span>
+                        <span class="px-2.5 py-1 rounded-md bg-slate-900/90 border border-slate-800 text-[11px] font-mono text-slate-300 light:bg-slate-100 light:border-slate-200 light:text-slate-700">shadcn/ui</span>
+                    </div>
+                </div>
+
+                <!-- Card Footer Link -->
+                <div class="pt-4 border-t border-darkborder/50 light:border-slate-100 flex items-center justify-between">
+                    <span class="text-[11px] text-slate-400 font-mono">nusahil.com/offer</span>
+                    <a href="https://www.nusahil.com/offer" target="_blank" rel="noopener" class="px-3.5 py-1.5 rounded-lg bg-wine-900/50 hover:bg-wine-800 text-white text-xs font-semibold flex items-center space-x-1.5 transition">
+                        <span>View Platform</span>
+                        <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
+                    </a>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- SKILLS & ARCHITECTURE SECTION -->
+    <section id="skills" class="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16 border-t border-darkborder/60 light:border-slate-200">
+        <div class="space-y-2 mb-10">
+            <span class="text-xs font-mono font-semibold text-wine-400 uppercase tracking-widest light:text-wine-700">CAPABILITIES</span>
+            <h2 class="text-2xl sm:text-3xl font-extrabold text-white light:text-slate-900">Technical Stack & Workflows</h2>
+            <p class="text-xs sm:text-sm text-slate-400 light:text-slate-600 max-w-xl">
+                Modern tools and frameworks curated for maximum build velocity, code reliability, and real-time database capabilities.
+            </p>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+            
+            <!-- Category 1: Languages -->
+            <div class="p-5 rounded-xl bg-darkcard border border-darkborder light:bg-white light:border-slate-200 space-y-3">
+                <div class="flex items-center space-x-2 text-wine-400 light:text-wine-700">
+                    <i data-lucide="code" class="w-4 h-4"></i>
+                    <h3 class="text-xs font-bold uppercase tracking-wider text-white light:text-slate-900">Languages</h3>
+                </div>
+                <ul class="space-y-2 text-xs text-slate-300 light:text-slate-600 font-mono">
+                    <li class="flex items-center justify-between"><span>TypeScript</span> <span class="text-[10px] text-wine-400/80">Core</span></li>
+                    <li class="flex items-center justify-between"><span>JavaScript (ES6+)</span></li>
+                    <li class="flex items-center justify-between"><span>SQL / PostgreSQL</span></li>
+                    <li class="flex items-center justify-between"><span>HTML5 / CSS3</span></li>
+                </ul>
+            </div>
+
+            <!-- Category 2: Frameworks & UI -->
+            <div class="p-5 rounded-xl bg-darkcard border border-darkborder light:bg-white light:border-slate-200 space-y-3">
+                <div class="flex items-center space-x-2 text-wine-400 light:text-wine-700">
+                    <i data-lucide="layout" class="w-4 h-4"></i>
+                    <h3 class="text-xs font-bold uppercase tracking-wider text-white light:text-slate-900">Frameworks & UI</h3>
+                </div>
+                <ul class="space-y-2 text-xs text-slate-300 light:text-slate-600 font-mono">
+                    <li class="flex items-center justify-between"><span>Next.js 16</span> <span class="text-[10px] text-wine-400/80">Primary</span></li>
+                    <li class="flex items-center justify-between"><span>React</span></li>
+                    <li class="flex items-center justify-between"><span>Tailwind CSS</span></li>
+                    <li class="flex items-center justify-between"><span>shadcn/ui</span></li>
+                </ul>
+            </div>
+
+            <!-- Category 3: Backend & Data -->
+            <div class="p-5 rounded-xl bg-darkcard border border-darkborder light:bg-white light:border-slate-200 space-y-3">
+                <div class="flex items-center space-x-2 text-wine-400 light:text-wine-700">
+                    <i data-lucide="database" class="w-4 h-4"></i>
+                    <h3 class="text-xs font-bold uppercase tracking-wider text-white light:text-slate-900">Backend & Auth</h3>
+                </div>
+                <ul class="space-y-2 text-xs text-slate-300 light:text-slate-600 font-mono">
+                    <li class="flex items-center justify-between"><span>Supabase</span> <span class="text-[10px] text-wine-400/80">Realtime</span></li>
+                    <li class="flex items-center justify-between"><span>PostgreSQL</span></li>
+                    <li class="flex items-center justify-between"><span>REST APIs & Webhooks</span></li>
+                    <li class="flex items-center justify-between"><span>Clerk Auth</span></li>
+                </ul>
+            </div>
+
+            <!-- Category 4: Tooling & Delivery -->
+            <div class="p-5 rounded-xl bg-darkcard border border-darkborder light:bg-white light:border-slate-200 space-y-3">
+                <div class="flex items-center space-x-2 text-wine-400 light:text-wine-700">
+                    <i data-lucide="sparkles" class="w-4 h-4"></i>
+                    <h3 class="text-xs font-bold uppercase tracking-wider text-white light:text-slate-900">AI Workflows</h3>
+                </div>
+                <ul class="space-y-2 text-xs text-slate-300 light:text-slate-600 font-mono">
+                    <li class="flex items-center justify-between"><span>AI-Assisted Dev</span> <span class="text-[10px] text-wine-400/80">Velocity</span></li>
+                    <li class="flex items-center justify-between"><span>Vercel Platform</span></li>
+                    <li class="flex items-center justify-between"><span>Git / GitHub</span></li>
+                    <li class="flex items-center justify-between"><span>VS Code Workspaces</span></li>
+                </ul>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- CONTACT & FOOTER SECTION -->
+    <section id="contact" class="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16 border-t border-darkborder/60 light:border-slate-200">
+        <div class="p-8 sm:p-12 rounded-3xl bg-gradient-to-b from-darkcard to-wine-950/40 border border-darkborder light:from-white light:to-wine-50 light:border-slate-200 text-center space-y-6">
+            
+            <div class="max-w-xl mx-auto space-y-3">
+                <span class="text-xs font-mono font-semibold text-wine-400 uppercase tracking-widest light:text-wine-700">LET'S BUILD TOGETHER</span>
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-white light:text-slate-900">Ready to transform ideas into scalable software?</h2>
+                <p class="text-xs sm:text-sm text-slate-300 light:text-slate-600 leading-relaxed">
+                    Whether you have an upcoming web project, require rapid product iteration, or want to discuss opportunities in Riyadh or remotely, feel free to reach out.
+                </p>
+            </div>
+
+            <!-- Email Display & Interactive Copy Box -->
+            <div class="inline-flex flex-col sm:flex-row items-center justify-center gap-3 p-2 rounded-2xl bg-darkbg/90 border border-darkborder light:bg-slate-100 light:border-slate-300 max-w-md mx-auto w-full">
+                <div class="flex items-center space-x-2 px-3 py-1 text-xs font-mono text-slate-200 light:text-slate-800 overflow-hidden text-ellipsis">
+                    <i data-lucide="mail" class="w-4 h-4 text-wine-400 shrink-0"></i>
+                    <span id="email-text" class="select-all">abdulmajeedalobaili@outlook.com</span>
+                </div>
+                <button onclick="copyEmail()" id="copy-btn" class="w-full sm:w-auto px-4 py-2 rounded-xl bg-wine-800 hover:bg-wine-700 text-white text-xs font-semibold flex items-center justify-center space-x-1.5 transition">
+                    <i data-lucide="copy" class="w-3.5 h-3.5" id="copy-icon"></i>
+                    <span id="copy-text">Copy Email</span>
+                </button>
+            </div>
+
+            <!-- External Social Links -->
+            <div class="flex items-center justify-center space-x-4 pt-4 text-xs font-medium">
+                <a href="https://github.com/necrotrace" target="_blank" rel="noopener" class="px-4 py-2 rounded-xl bg-darkcard border border-darkborder hover:border-wine-700 text-slate-300 hover:text-white light:bg-white light:border-slate-300 light:text-slate-700 flex items-center space-x-2 transition">
+                    <i data-lucide="github" class="w-4 h-4 text-wine-400"></i>
+                    <span>GitHub (@necrotrace)</span>
+                </a>
+                <a href="https://x.com/necrotrace" target="_blank" rel="noopener" class="px-4 py-2 rounded-xl bg-darkcard border border-darkborder hover:border-wine-700 text-slate-300 hover:text-white light:bg-white light:border-slate-300 light:text-slate-700 flex items-center space-x-2 transition">
+                    <i data-lucide="twitter" class="w-4 h-4 text-wine-400"></i>
+                    <span>X / Twitter</span>
+                </a>
+            </div>
+
+        </div>
+
+        <!-- Copyright Footer -->
+        <footer class="mt-12 text-center text-xs text-slate-500 font-mono flex flex-col sm:flex-row items-center justify-between gap-2">
+            <div>
+                © <span id="year">2026</span> Abdulmajeed Al-Obaili (عبدالمجيد العبيلي). All rights reserved.
+            </div>
+            <div class="flex items-center space-x-1 text-[11px]">
+                <span>Crafted with</span>
+                <span class="text-wine-500">♥</span>
+                <span>in Riyadh, Saudi Arabia</span>
+            </div>
+        </footer>
+    </section>
+
+    <!-- SCRIPT FOR THEME TOGGLE, COPY EMAIL, AND LUCIDE ICONS -->
+    <script>
+        // Initialize Lucide Icons
+        lucide.createIcons();
+
+        // Theme Toggle Functionality
+        function toggleTheme() {
+            const html = document.documentElement;
+            const sunIcon = document.getElementById('theme-icon-sun');
+            const moonIcon = document.getElementById('theme-icon-moon');
+
+            if (html.classList.contains('dark')) {
+                html.classList.remove('dark');
+                html.classList.add('light');
+                sunIcon.classList.remove('hidden');
+                moonIcon.classList.add('hidden');
+            } else {
+                html.classList.remove('light');
+                html.classList.add('dark');
+                sunIcon.classList.add('hidden');
+                moonIcon.classList.remove('hidden');
+            }
+        }
+
+        // Copy Email to Clipboard Functionality
+        function copyEmail() {
+            const email = "abdulmajeedalobaili@outlook.com";
+            
+            // Clipboard copy with fallback
+            if (navigator.clipboard) {
+                navigator.clipboard.writeText(email);
+            } else {
+                const textarea = document.createElement("textarea");
+                textarea.value = email;
+                document.body.appendChild(textarea);
+                textarea.select();
+                document.execCommand("copy");
+                document.body.removeChild(textarea);
+            }
+
+            const copyText = document.getElementById("copy-text");
+            const copyBtn = document.getElementById("copy-btn");
+            
+            copyText.textContent = "Copied!";
+            copyBtn.classList.remove("bg-wine-800", "hover:bg-wine-700");
+            copyBtn.classList.add("bg-emerald-600");
+
+            setTimeout(() => {
+                copyText.textContent = "Copy Email";
+                copyBtn.classList.remove("bg-emerald-600");
+                copyBtn.classList.add("bg-wine-800", "hover:bg-wine-700");
+            }, 2000);
+        }
+    </script>
+</body>
+</html>
